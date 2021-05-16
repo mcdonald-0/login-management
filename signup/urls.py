@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import index, current_datetime
+from . import views
 
-appname = 'signup'
+app_name = 'signup'
 urlpatterns = [
-    path('', index, name='index'),
-    path('time/', current_datetime)
+    path('', views.index, name='index'),
+    path('final/', views.web_detail_create, name='web_detail_create')
 ]
