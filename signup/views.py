@@ -11,13 +11,14 @@ def index(requests):
         form = UserDetailForm(requests.POST)
         if form.is_valid():
             UserDetail.objects.create(**form.cleaned_data)
-            item = UserDetail.objects.latest('id')
-            return redirect('signup:web_detail_create', user=item)
+            # print(requests.POST['first_name'])
+            # return HttpResponse('<h1>Hello</h1>')
+            # return redirect('signup:web_detail_create')
     context = {'form': form}
     return render(requests, 'signup/index.html', context)
 
 
-def web_detail_create(requests, user):
+def web_detail_create(requests):
     form = WebDetailForm()
     if requests.method == "POST":
         form = UserDetailForm(requests.POST)
