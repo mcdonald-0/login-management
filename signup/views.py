@@ -13,7 +13,7 @@ def index(requests):
             UserDetail.objects.create(**form.cleaned_data)
             # print(requests.POST['first_name'])
             # return HttpResponse('<h1>Hello</h1>')
-            # return redirect('signup:web_detail_create')
+            return redirect('signup:web_detail_create')
     context = {'form': form}
     return render(requests, 'signup/index.html', context)
 
@@ -29,3 +29,5 @@ def web_detail_create(requests):
             return redirect('signup:final')
     context = {'form': form}
     return render(requests, 'signup/final.html', context)
+
+# TODO: i need to add bootstrap to my projects for stylish looks

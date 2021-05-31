@@ -1,11 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block headtags %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <title>hello</title>
+{% endblock %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
-    {{ from.as_p }}
+    {{ form.as_p }}
     <button type="submit">Login</button>
 </form>
+
+<div class="alert alert-success">
+  <strong>Success!</strong> You should <a href="#" class="alert-link">read this message</a>.
+</div>
+{% load static %}
+<img src="{% static 'toph.png' %}" alt="toph">
 
 <a href="{% url 'login:index' %}">Back to dashboard</a>
 <br>
 <a href="{% url 'login:password_reset' %}">Reset password</a>
 <br>
 <a href="{% url 'signup:index' %}">Register</a>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+
