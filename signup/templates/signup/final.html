@@ -1,6 +1,6 @@
-{% extends 'signup/base.html' %}
+{% extends 'base.html' %}
 
-{% block content %}
+{% block maincontent %}
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}

@@ -19,8 +19,6 @@ def login(requests):
     context = {'form': form}
     return render(requests, 'registration/login.html', context)
 
-def static_view(requests):
-    return render(requests, 'signup/static_html.html', {})
 
 
 # TODO: i need to create a login page so a guest can either login  or signup for now, its just the signup

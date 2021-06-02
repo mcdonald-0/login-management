@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="C:/Users/user/Documents/UserManagement/Manageusers/static/bootstrap/css/bootstrap.min.css">
-    <title>Welcome</title>
-</head>
-<body>
-    Hello, {{ user.username|default:'Guest' }}!
+{% extends 'base.html' %}
 
-    <div>
-        {% if user.is_authenticated %}
-            <a href="{% url 'login:logout' %}">Logout</a>
-            <br>
-            <a href="{% url 'login:password_change' %}">Change password</a>
-	    {% else %}
-		    <a href="{% url 'login:login' %}">Login</a>
-            <br>
-            <a href="{% url 'signup:index' %}">Signup</a>
-	{% endif %}
-    </div>
-<script src="C:/Users/user/Documents/UserManagement/Manageusers/static/bootstrap/js/bootstrap.min.js"></script>
-</body>
-</html>
+{% block maincontent %}
+Hello, {{ user.username|default:'Guest' }}!
+<div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'login:logout' %}">Logout</a>
+    <br>
+    <a href="{% url 'login:password_change' %}">Change password</a>
+    {% else %}
+    <a href="{% url 'login:login' %}">Login</a>
+    <br>
+    <a href="{% url 'signup:index' %}">Signup</a>
+    {% endif %}
+</div>
+{% endblock %}
