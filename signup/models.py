@@ -14,17 +14,18 @@ class UserDetail(models.Model):
     last_name = models.CharField(max_length=60)
     gender = models.CharField(max_length=1, choices=SEX)
     email = models.EmailField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
 
 
 class WebDetail(models.Model):
-    user = models.OneToOneField(UserDetail, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     username = models.CharField(max_length=60)
     password = models.CharField(max_length=60)
     # TODO: i need to search how to do auto_now_add function
-    # time_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.username
