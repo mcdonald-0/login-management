@@ -4,7 +4,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Hello, {{ user.username|default:'Guest' }}!</h4>
+        <h4 class="card-title">Hello, {{ user.username|default:'Newbie' }}!</h4>
         {% if user.is_authenticated %}
         <p class="card-text">Welcome back!</p>
         <a href="{% url 'login:logout' %}">Logout</a>
