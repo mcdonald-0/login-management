@@ -1,6 +1,5 @@
+import random
 from django.db import models
-import datetime
-from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -21,10 +20,9 @@ class UserDetail(models.Model):
 
 
 class WebDetail(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, default=User, on_delete=models.CASCADE)
     username = models.CharField(max_length=60)
     password = models.CharField(max_length=60)
-    # TODO: i need to search how to do auto_now_add function
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
