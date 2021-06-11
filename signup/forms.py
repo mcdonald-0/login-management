@@ -41,11 +41,19 @@ class WebDetailForm(forms.Form):
         max_length=30,
         min_length=2,
         label="",
-        widget=forms.TextInput(attrs={'placeholder': 'username'})
+        widget=forms.TextInput(attrs={'placeholder': 'Username'})
     )
     password = forms.CharField(
         max_length=30,
         min_length=6,
         label="",
-        widget=forms.PasswordInput(attrs={'placeholder': 'password'})
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password'})
     )
+    # password_confirmation = forms.CharField(
+    #     max_length=30,
+    #     min_length=6,
+    #     label="",
+    #     widget=forms.PasswordInput(attrs={'placeholder': 'Password confirmation'})
+    # )
+
+

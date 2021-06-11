@@ -8,11 +8,13 @@ class UserDetail(models.Model):
         ('M', 'Male'),
         ('F', 'Female'),
     )
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=60)
     middle_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
     gender = models.CharField(max_length=1, choices=SEX)
     email = models.EmailField()
+
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -20,10 +22,12 @@ class UserDetail(models.Model):
 
 
 class WebDetail(models.Model):
-    user = models.OneToOneField(User, null=True, default=User, on_delete=models.CASCADE)
     username = models.CharField(max_length=60)
     password = models.CharField(max_length=60)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.username
+
+# TODO: i think i might change the structure of my project; the form would just be one and the user can edit
+#   those settings in their profile later.

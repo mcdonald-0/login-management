@@ -12,7 +12,10 @@ def index(requests):
     if requests.method == "POST":
         form = UserDetailForm(requests.POST)
         if form.is_valid():
-            UserDetail.objects.create(**form.cleaned_data)
+            user = UserDetail.objects.create(**form.cleaned_data)
+            user.save()
+            data = form.cleaned_data
+            requests.session['user_data'] = data
             return redirect('signup:web_detail_create')
     context = {'form': form}
     return render(requests, 'signup/index.html', context)
@@ -20,11 +23,14 @@ def index(requests):
 
 def web_detail_create(requests):
     form = WebDetailForm()
+    user_data = requests.session.get('user_data')
     if requests.method == "POST":
-        form = UserDetailForm(requests.POST)
+        form = WebDetailForm(requests.POST)
         if form.is_valid():
-            WebDetail.objects.create(**form.cleaned_data)
-            return redirect('signup:final')
+            User.objects.create_user(**form.cleaned_data)
+            user_details = WebDetail.objects.create(**form.cleaned_data)
+            user_details.save()
+            return HttpResponse('<h1>Congratulations</h1>')
     context = {'form': form}
     return render(requests, 'signup/final.html', context)
 
