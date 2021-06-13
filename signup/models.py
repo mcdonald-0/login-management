@@ -1,4 +1,3 @@
-import random
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -20,14 +19,6 @@ class UserDetail(models.Model):
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
 
-
-class WebDetail(models.Model):
-    username = models.CharField(max_length=60)
-    password = models.CharField(max_length=60)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
-
-    def __str__(self):
-        return self.username
 
 # TODO: i think i might change the structure of my project; the form would just be one and the user can edit
 #   those settings in their profile later.

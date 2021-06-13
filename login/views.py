@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm
-from signup.models import WebDetail
 
 
 def index(requests):
@@ -15,7 +14,9 @@ def login(requests):
     if requests.method == "POST":
         form = LoginForm(requests.POST)
         if form.is_valid():
-            WebDetail.objects.get(**form.cleaned_data)
+            print('hello')
+            # WebDetail.objects.get(**form.cleaned_data)
+
     context = {'form': form}
     return render(requests, 'registration/login.html', context)
 

@@ -36,7 +36,7 @@ class UserDetailForm(forms.Form):
     )
 
 
-class WebDetailForm(forms.Form):
+class UserCreateForm(forms.Form):
     username = forms.CharField(
         max_length=30,
         min_length=2,
