@@ -1,42 +1,40 @@
 from django import forms
+from .models import UserDetail
+from django.contrib.auth.models import User
 
 
-class UserDetailForm(forms.Form):
+class UserDetailForm(forms.ModelForm):
     first_name = forms.CharField(
-        max_length=60,
-        min_length=3,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': 'First name'})
-    )
-    middle_name = forms.CharField(
-        max_length=60,
-        min_length=3,
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': 'Middle name'})
-    )
+            max_length=60,
+            min_length=3,
+            label="",
+            widget=forms.TextInput(attrs={'placeholder': 'First name'})
+        )
     SEX = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-    )
+            ('M', 'Male'),
+            ('F', 'Female'),
+        )
     last_name = forms.CharField(
         max_length=60,
         min_length=3,
         label="",
         widget=forms.TextInput(attrs={'placeholder': 'Last name'})
     )
-    # TODO: I need to put a default of gender in this gender form
-    gender = forms.ChoiceField(
-        choices=SEX,
-        label=""
-    )
+    # gender = forms.ChoiceField(
+    #         choices=SEX,
+    #         label=""
+    #     )
     email = forms.EmailField(
         label='',
         widget=forms.TextInput(attrs={'placeholder': 'Email'})
     )
 
+    class Meta:
+        model = UserDetail
+        fields = ['first_name', 'last_name', 'email']
 
-class UserCreateForm(forms.Form):
+
+class UserCreateForm(forms.ModelForm):
     username = forms.CharField(
         max_length=30,
         min_length=2,
@@ -49,11 +47,10 @@ class UserCreateForm(forms.Form):
         label="",
         widget=forms.PasswordInput(attrs={'placeholder': 'Password'})
     )
-    # password_confirmation = forms.CharField(
-    #     max_length=30,
-    #     min_length=6,
-    #     label="",
-    #     widget=forms.PasswordInput(attrs={'placeholder': 'Password confirmation'})
-    # )
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
 
 
