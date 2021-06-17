@@ -1,40 +1,56 @@
 from django import forms
-from .models import UserDetail
 from django.contrib.auth.models import User
 
 
-class UserDetailForm(forms.ModelForm):
+class UserCreateForm(forms.ModelForm):
     first_name = forms.CharField(
-            max_length=60,
-            min_length=3,
-            label="",
-            widget=forms.TextInput(attrs={'placeholder': 'First name'})
-        )
-    SEX = (
-            ('M', 'Male'),
-            ('F', 'Female'),
-        )
+        max_length=60,
+        min_length=3,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': 'First name'})
+    )
     last_name = forms.CharField(
         max_length=60,
         min_length=3,
         label="",
         widget=forms.TextInput(attrs={'placeholder': 'Last name'})
     )
-    # gender = forms.ChoiceField(
-    #         choices=SEX,
-    #         label=""
-    #     )
+    gender = forms.ChoiceField(
+            choices=(
+                ('M', 'Male'),
+                ('F', 'Female')
+            ),
+            label=""
+        )
     email = forms.EmailField(
         label='',
         widget=forms.TextInput(attrs={'placeholder': 'Email'})
     )
+    username = forms.CharField(
+        max_length=30,
+        min_length=2,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': 'Username'})
+    )
+    password = forms.CharField(
+        max_length=30,
+        min_length=6,
+        label="",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password'})
+    )
+    password_confirmation = forms.CharField(
+        max_length=30,
+        min_length=6,
+        label="",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password confirmation'})
+    )
 
     class Meta:
-        model = UserDetail
-        fields = ['first_name', 'last_name', 'email']
+        model = User
+        fields = ['first_name', 'last_name', 'gender', 'email', 'username', 'password', 'password_confirmation']
 
 
-class UserCreateForm(forms.ModelForm):
+class UserLoginForm(forms.ModelForm):
     username = forms.CharField(
         max_length=30,
         min_length=2,
@@ -51,6 +67,3 @@ class UserCreateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
-
-
-

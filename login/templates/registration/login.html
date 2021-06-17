@@ -4,7 +4,24 @@
 {% block maincontent %}
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <p>
+        <input type="text"
+               name="username"
+               autofocus=""
+               autocapitalize="none"
+               autocomplete="username"
+               maxlength="150"
+               required
+               placeholder="Username"
+               id="id_username">
+    </p>
+    <p>
+        <input type="password"
+               name="password"
+               autocomplete="current-password"
+               required
+               placeholder="Password"
+               id="id_password"></p>
     <button type="submit">Login</button>
 </form>
 

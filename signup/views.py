@@ -1,9 +1,9 @@
-from django.shortcuts import render
-from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import UserDetailForm, UserCreateForm
+from django.contrib.auth import authenticate, login
+
+from .forms import UserCreateForm, UserLoginForm
 from .models import UserDetail
-from django.shortcuts import redirect, reverse, get_object_or_404
 
 
 def index(requests):
@@ -12,29 +12,29 @@ def index(requests):
         form = UserCreateForm(requests.POST)
         if form.is_valid():
             user = form.save()
-            User.objects.create(**form.cleaned_data)
-            requests.session['data'] = form.cleaned_data
-            return redirect('signup:web_detail_create')
+            UserDetail.objects.create(
+                user=user,
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                gender=form.cleaned_data['gender'],
+                email=form.cleaned_data['email']
+            )
+            return redirect('/accounts/login')
     context = {'form': form}
     return render(requests, 'signup/index.html', context)
 
 
-def web_detail_create(requests):
-    form = UserDetailForm()
-    user_detail = requests.session.get('data')
-    print(requests.user)
+def user_login(requests):
+    form = UserLoginForm()
     if requests.method == "POST":
-        form = UserDetailForm(requests.POST)
+        form = UserCreateForm(requests.POST)
         if form.is_valid():
-            print(user_detail['password'])
-            User.objects.create_user(**form.cleaned_data)
-            form.save()
-            user = User.objects.get(username=user_detail['username'])
-            UserDetail.objects.create(user=user)
-            return HttpResponse('<h1>Congratulations</h1>')
+            user = authenticate(**form.cleaned_data)
+            if user is not None:
+                login(requests, user)
+                return redirect('blog:index')
+            else:
+                print('<h1>Sorry</h1>')
     context = {'form': form}
-    return render(requests, 'signup/final.html', context)
+    return render(requests, 'signup/index.html', context)
 
-# TODO: i need to link all of this in one form that inherits from the django.auth.User
-
-# TODO: i need to add bootstrap to my projects for stylish looks
