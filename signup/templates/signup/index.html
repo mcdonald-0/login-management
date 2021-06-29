@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block maincontent %}
-{% load crispy_forms_tags %}
-<form method="POST" class="uniForm">
+<form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="login">Submit</button>
 </form>
-
+<br>
 <a href="{% url 'login:index' %}">Back to dashboard</a>
 {% endblock %}

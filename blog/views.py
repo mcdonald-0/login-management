@@ -5,4 +5,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def index(requests):
-    return HttpResponse('<h1>Congratulations</h1>')
+    return render(requests, 'blog/index.html')

@@ -10,10 +10,10 @@ class UserDetail(models.Model):
 
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
-    first_name = models.CharField(max_length=60)
-    last_name = models.CharField(max_length=60)
-    gender = models.CharField(max_length=1, choices=SEX)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=60, null=True)
+    last_name = models.CharField(max_length=60, null=True)
+    gender = models.CharField(max_length=1, choices=SEX, null=True)
+    email = models.EmailField(null=True)
 
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 

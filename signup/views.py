@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
-from .forms import UserCreateForm, UserLoginForm
+from .forms import UserCreateForm
 from .models import UserDetail
 
 
@@ -11,30 +10,13 @@ def index(requests):
     if requests.method == "POST":
         form = UserCreateForm(requests.POST)
         if form.is_valid():
-            user = form.save()
-            UserDetail.objects.create(
-                user=user,
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                gender=form.cleaned_data['gender'],
-                email=form.cleaned_data['email']
-            )
-            return redirect('/accounts/login')
-    context = {'form': form}
+            user = User.objects.create_user(**form.cleaned_data)
+            user.save()
+            return redirect('blog:index')
+    context = {
+        'form': form,
+    }
     return render(requests, 'signup/index.html', context)
 
-
-def user_login(requests):
-    form = UserLoginForm()
-    if requests.method == "POST":
-        form = UserCreateForm(requests.POST)
-        if form.is_valid():
-            user = authenticate(**form.cleaned_data)
-            if user is not None:
-                login(requests, user)
-                return redirect('blog:index')
-            else:
-                print('<h1>Sorry</h1>')
-    context = {'form': form}
-    return render(requests, 'signup/index.html', context)
-
+# TODO: i need to pass the form.cleaned_data to the template so the user's username can be refrenced when
+#   the form for logging in shows.
